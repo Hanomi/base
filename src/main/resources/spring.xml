@@ -4,5 +4,20 @@
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!--create bean with constructor-->
+    <bean id="client" class="data.Client">
+        <constructor-arg value="1"/>
+    <!--<constructor-arg index="0" value="1"/> can use index
+        <constructor-arg type="java.lang.Integer" value="1"/> can use type -->
+        <constructor-arg value="Bender Rodriguez"/>
+    </bean>
+
+    <bean id="consoleEventLogger" class="logger.ConsoleEventLogger"/>
+
+    <bean id="app" class="app.App">
+        <!--create bean with constructor, inject bean ref-->
+        <constructor-arg ref="client"/>
+        <constructor-arg ref="consoleEventLogger"/>
+    </bean>
 
 </beans>
