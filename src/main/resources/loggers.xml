@@ -14,4 +14,14 @@
         <constructor-arg value="10"/>
     </bean>
 
+    <bean id="combineEventLogger" class="logger.CombinedEventLogger">
+        <!--inject set in constructor-->
+        <constructor-arg>
+            <set>
+                <ref bean="consoleEventLogger"/>
+                <ref bean="fileEventLogger"/>
+            </set>
+        </constructor-arg>
+    </bean>
+
 </beans>
