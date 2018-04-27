@@ -14,14 +14,19 @@
 
     <bean id="consoleEventLogger" class="logger.ConsoleEventLogger"/>
 
-    <bean id="fileEventLogger" class="logger.FileEventLogger">
+    <bean id="fileEventLogger" class="logger.FileEventLogger" init-method="init">
+        <constructor-arg value="C:\Java\1\Haha\1.txt"/>
+    </bean>
+
+    <bean id="cacheFileEventLogger" class="logger.CacheFileEventLogger" destroy-method="destroy">
+        <constructor-arg value="10"/>
         <constructor-arg value="C:\Java\1\Haha\1.txt"/>
     </bean>
 
     <bean id="app" class="app.App">
         <!--create bean with constructor, inject bean ref-->
         <constructor-arg ref="client"/>
-        <constructor-arg ref="consoleEventLogger"/>
+        <constructor-arg ref="cacheFileEventLogger"/>
     </bean>
 
     <!--bean dateFormat created by factory method-->

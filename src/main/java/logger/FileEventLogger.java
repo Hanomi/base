@@ -13,14 +13,15 @@ public class FileEventLogger implements EventLogger {
         this.filename = new File(filename);
     }
 
-    public void init() throws IOException {
+    //spring can use private init
+    private void init() throws IOException {
         boolean canWrite = filename.canWrite();
         if (!canWrite) throw new IOException("can't write in file");
     }
 
     public void logEvent(Event event) {
         try {
-            FileUtils.writeStringToFile(filename, event.toString(), Charset.defaultCharset(), true);
+            FileUtils.writeStringToFile(filename, event.toString()+"\n", Charset.defaultCharset(), true);
         } catch (IOException e) {
             e.printStackTrace();
         }

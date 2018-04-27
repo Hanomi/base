@@ -4,6 +4,7 @@ import data.Client;
 import logger.Event;
 import logger.EventLogger;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class App {
@@ -24,12 +25,14 @@ public class App {
 
     public static void main(String[] args) {
         //create context for test in main
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+        ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
 
     //    App app = (App) ctx.getBean("app"); // id
         App app = ctx.getBean("app", App.class); //id + class
 
         app.logEvent("New event for user 1", ctx);
         app.logEvent("Other event for user 2", ctx);
+
+        ctx.close();
     }
 }
