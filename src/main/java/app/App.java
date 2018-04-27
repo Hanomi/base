@@ -1,6 +1,7 @@
 package app;
 
 import data.Client;
+import logger.Event;
 import logger.EventLogger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -14,9 +15,11 @@ public class App {
         this.eventLogger = eventLogger;
     }
 
-    public void logEvent(String msg) {
+    public void logEvent(String msg, ApplicationContext context) {
         String message = msg.replaceAll(Integer.toString(client.getId()), client.getFullName());
-    //    eventLogger.logEvent(message);
+        Event event = context.getBean("event", Event.class);
+        event.setMessage(message);
+        eventLogger.logEvent(event);
     }
 
     public static void main(String[] args) {
@@ -26,7 +29,7 @@ public class App {
     //    App app = (App) ctx.getBean("app"); // id
         App app = ctx.getBean("app", App.class); //id + class
 
-        app.logEvent("New event for user 1");
-        app.logEvent("Other event for user 2");
+        app.logEvent("New event for user 1", ctx);
+        app.logEvent("Other event for user 2", ctx);
     }
 }

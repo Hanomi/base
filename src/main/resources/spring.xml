@@ -15,7 +15,7 @@
     <bean id="consoleEventLogger" class="logger.ConsoleEventLogger"/>
 
     <bean id="fileEventLogger" class="logger.FileEventLogger">
-        <constructor-arg value="C:/Java/1.txt"/>
+        <constructor-arg value="C:\Java\1\Haha\1.txt"/>
     </bean>
 
     <bean id="app" class="app.App">

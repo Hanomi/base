@@ -13,6 +13,11 @@ public class FileEventLogger implements EventLogger {
         this.filename = new File(filename);
     }
 
+    public void init() throws IOException {
+        boolean canWrite = filename.canWrite();
+        if (!canWrite) throw new IOException("can't write in file");
+    }
+
     public void logEvent(Event event) {
         try {
             FileUtils.writeStringToFile(filename, event.toString(), Charset.defaultCharset(), true);
