@@ -6,14 +6,20 @@
 
     <import resource="loggers.xml"/>
 
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations" value="classpath:client.properties"/>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+    </bean>
+
     <!--create bean with constructor-->
     <bean id="client" class="data.Client">
-        <constructor-arg value="1"/>
+        <constructor-arg value="${id}"/>
     <!--<constructor-arg index="0" value="1"/> can use index
         <constructor-arg type="java.lang.Integer" value="1"/> can use type -->
-        <constructor-arg value="Bender Rodriguez"/>
+        <constructor-arg value="${name}"/>
         <!--set value by property - need setter!-->
-        <property name="greeting" value="Hahahahaha. Oh wait you’re serious. Let me laugh even harder."/>
+        <property name="greeting" value="${greeting}"/>
     </bean>
 
     <bean id="app" class="app.App">
