@@ -1,4 +1,4 @@
-package EnevtLogger;
+package logger;
 
 public class ConsoleEventLogger implements EventLogger{
     public void logEvent(String message) {

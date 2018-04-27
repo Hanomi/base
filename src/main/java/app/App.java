@@ -1,12 +1,16 @@
-package App;
+package app;
 
-import Data.Client;
-import EnevtLogger.ConsoleEventLogger;
-import EnevtLogger.EventLogger;
+import data.Client;
+import logger.EventLogger;
 
 public class App {
     private Client client;
     private EventLogger eventLogger;
+
+    public App(Client client, EventLogger eventLogger) {
+        this.client = client;
+        this.eventLogger = eventLogger;
+    }
 
     public void logEvent(String msg) {
         String message = msg.replaceAll(Integer.toString(client.getId()), client.getFullName());
@@ -14,11 +18,6 @@ public class App {
     }
 
     public static void main(String[] args) {
-        App app = new App();
 
-        app.client = new Client(1, "Bender Rodriguez");
-        app.eventLogger = new ConsoleEventLogger();
-
-        app.logEvent("New event for user 1");
     }
 }
