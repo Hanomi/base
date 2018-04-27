@@ -3,24 +3,31 @@ package app;
 import data.Client;
 import logger.Event;
 import logger.EventLogger;
-import org.springframework.context.ApplicationContext;
+import logger.EventType;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import java.util.Map;
 
 public class App {
     private Client client;
-    private EventLogger eventLogger;
+    private EventLogger defaultLogger;
+    private Map<EventType, EventLogger> eventLoggers;
 
-    public App(Client client, EventLogger eventLogger) {
+    public App(Client client, EventLogger defaultLogger, Map<EventType, EventLogger> eventLoggers) {
         this.client = client;
-        this.eventLogger = eventLogger;
+        this.defaultLogger = defaultLogger;
+        this.eventLoggers = eventLoggers;
     }
 
-    public void logEvent(String msg, ApplicationContext context) {
+    public void logEvent(EventType type, Event event, String msg) {
         String message = msg.replaceAll(Integer.toString(client.getId()), client.getFullName());
-        Event event = context.getBean("event", Event.class);
         event.setMessage(message);
-        eventLogger.logEvent(event);
+
+        EventLogger logger = eventLoggers.get(type);
+        if (logger == null) {
+            logger = defaultLogger;
+        }
+        logger.logEvent(event);
     }
 
     public static void main(String[] args) {
@@ -30,8 +37,14 @@ public class App {
     //    App app = (App) ctx.getBean("app"); // id
         App app = ctx.getBean("app", App.class); //id + class
 
-        app.logEvent("New event for user 1", ctx);
-        app.logEvent("Other event for user 2", ctx);
+        Event event = ctx.getBean(Event.class);
+        app.logEvent(EventType.INFO, event, "Some event for 1");
+
+        event = ctx.getBean(Event.class);
+        app.logEvent(EventType.ERROR, event, "Some event for 2");
+
+        event = ctx.getBean(Event.class);
+        app.logEvent(null, event, "Some event for 3");
 
         ctx.close();
     }
