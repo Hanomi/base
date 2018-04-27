@@ -12,6 +12,8 @@
     <!--<constructor-arg index="0" value="1"/> can use index
         <constructor-arg type="java.lang.Integer" value="1"/> can use type -->
         <constructor-arg value="Bender Rodriguez"/>
+        <!--set value by property - need setter!-->
+        <property name="greeting" value="Hahahahaha. Oh wait you’re serious. Let me laugh even harder."/>
     </bean>
 
     <bean id="app" class="app.App">
