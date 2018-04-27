@@ -1,3 +1,9 @@
+package App;
+
+import Data.Client;
+import EnevtLogger.ConsoleEventLogger;
+import EnevtLogger.EventLogger;
+
 public class App {
     private Client client;
     private EventLogger eventLogger;
@@ -11,7 +17,7 @@ public class App {
         App app = new App();
 
         app.client = new Client(1, "Bender Rodriguez");
-        app.eventLogger = new EventLogger();
+        app.eventLogger = new ConsoleEventLogger();
 
         app.logEvent("New event for user 1");
     }
