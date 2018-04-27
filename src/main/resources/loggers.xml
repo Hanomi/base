@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="consoleEventLogger" class="logger.ConsoleEventLogger"/>
+
+    <bean id="fileEventLogger" class="logger.FileEventLogger" init-method="init">
+        <constructor-arg value="C:\Java\1\Haha\1.txt"/>
+    </bean>
+
+    <!--child use parent init method and constructor args-->
+    <bean id="cacheFileEventLogger" class="logger.CacheFileEventLogger" destroy-method="destroy" parent="fileEventLogger">
+        <constructor-arg value="10"/>
+    </bean>
+
+</beans>

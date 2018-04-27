@@ -4,23 +4,14 @@
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <import resource="loggers.xml"/>
+
     <!--create bean with constructor-->
     <bean id="client" class="data.Client">
         <constructor-arg value="1"/>
     <!--<constructor-arg index="0" value="1"/> can use index
         <constructor-arg type="java.lang.Integer" value="1"/> can use type -->
         <constructor-arg value="Bender Rodriguez"/>
-    </bean>
-
-    <bean id="consoleEventLogger" class="logger.ConsoleEventLogger"/>
-
-    <bean id="fileEventLogger" class="logger.FileEventLogger" init-method="init">
-        <constructor-arg value="C:\Java\1\Haha\1.txt"/>
-    </bean>
-
-    <bean id="cacheFileEventLogger" class="logger.CacheFileEventLogger" destroy-method="destroy">
-        <constructor-arg value="10"/>
-        <constructor-arg value="C:\Java\1\Haha\1.txt"/>
     </bean>
 
     <bean id="app" class="app.App">
