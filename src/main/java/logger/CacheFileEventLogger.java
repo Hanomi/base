@@ -7,7 +7,7 @@ public class CacheFileEventLogger extends FileEventLogger {
     private int cacheSize;
     private List<Event> cache;
 
-    public CacheFileEventLogger(int cacheSize, String filename) {
+    public CacheFileEventLogger(String filename, int cacheSize) {
         super(filename);
         this.cacheSize = cacheSize;
         this.cache = new ArrayList<>(cacheSize);
