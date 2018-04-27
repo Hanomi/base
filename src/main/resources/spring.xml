@@ -20,4 +20,16 @@
         <constructor-arg ref="consoleEventLogger"/>
     </bean>
 
+    <!--bean dateFormat created by factory method-->
+    <bean id="dateFormat" class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
+
+    <!--by default all beans are singletons-->
+    <bean id="event" class="logger.Event" scope="prototype">
+        <!--inner bean-->
+        <constructor-arg>
+            <bean class="java.util.Date"/>
+        </constructor-arg>
+        <constructor-arg ref="dateFormat"/>
+    </bean>
+
 </beans>
