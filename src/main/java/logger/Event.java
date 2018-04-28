@@ -1,6 +1,7 @@
 package logger;
 
 import java.text.DateFormat;
+import java.time.LocalTime;
 import java.util.Date;
 
 public class Event {
@@ -30,5 +31,10 @@ public class Event {
                 ", message='" + message + '\'' +
                 ", date=" + dateFormat.format(date) +
                 '}';
+    }
+
+    public static boolean isDay() {
+        LocalTime localTime = LocalTime.now();
+        return localTime.getHour() >= 8 && localTime.getHour() < 17;
     }
 }

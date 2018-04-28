@@ -4,8 +4,6 @@ import data.Client;
 import logger.Event;
 import logger.EventLogger;
 import logger.EventType;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.util.Map;
@@ -15,8 +13,7 @@ public class App {
     private EventLogger defaultLogger;
     private Map<EventType, EventLogger> eventLoggers;
 
-    @Autowired
-    public App(Client client, @Qualifier("cacheFileEventLogger") EventLogger defaultLogger, Map<EventType, EventLogger> eventLoggers) {
+    public App(Client client, EventLogger defaultLogger, Map<EventType, EventLogger> eventLoggers) {
         this.client = client;
         this.defaultLogger = defaultLogger;
         this.eventLoggers = eventLoggers;

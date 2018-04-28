@@ -6,7 +6,7 @@
        xsi:schemaLocation="
             http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
             http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
-            http://www.springframework.org/schema/context http://www.springframework.org/schema/spring-context.xsd">
+            http://www.springframework.org/schema/context http://www.springframework.org/context/spring-context.xsd">
 
     <import resource="loggers.xml"/>
 
@@ -19,6 +19,7 @@
     </bean>
 
     <util:properties id="clientProps" location="classpath:client.properties"/>
+
     <util:map id="loggerMap">
         <entry key="INFO" value-ref="consoleEventLogger"/>
         <entry key="ERROR" value-ref="combineEventLogger"/>
@@ -36,20 +37,25 @@
 
     <bean id="app" class="app.App">
         <!--create bean with constructor, inject bean ref-->
-<!--        <constructor-arg ref="client"/>
-        <constructor-arg ref="cacheFileEventLogger"/>
-        <constructor-arg ref="loggerMap"/>-->
+        <constructor-arg ref="client"/>
+        <!--expression language-->
+       <constructor-arg ref="#{T(logger.Event).isDay() ? 'fileEventLogger' : 'consoleEventLogger'}"/>
+       <!-- <constructor-arg ref="consoleEventLogger"/>-->
+        <constructor-arg ref="loggerMap"/>
     </bean>
 
     <!--bean dateFormat created by factory method-->
     <bean id="dateFormat" class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
 
+    <bean id="date" class="java.util.Date" scope="prototype"/>
+
     <!--by default all beans are singletons-->
     <bean id="event" class="logger.Event" scope="prototype">
+        <constructor-arg ref="date"/>
         <!--inner bean-->
-        <constructor-arg>
+    <!--<constructor-arg>
             <bean class="java.util.Date"/>
-        </constructor-arg>
+        </constructor-arg>-->
         <constructor-arg ref="dateFormat"/>
     </bean>
 
