@@ -1,9 +1,11 @@
 package app;
 
+import aop.LoggingAspect;
 import data.Client;
 import logger.Event;
 import logger.EventLogger;
 import logger.EventType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.util.Map;
@@ -12,6 +14,13 @@ public class App {
     private Client client;
     private EventLogger defaultLogger;
     private Map<EventType, EventLogger> eventLoggers;
+
+    private LoggingAspect loggingAspect;
+
+    @Autowired
+    public void setLoggingAspect(LoggingAspect loggingAspect) {
+        this.loggingAspect = loggingAspect;
+    }
 
     public App(Client client, EventLogger defaultLogger, Map<EventType, EventLogger> eventLoggers) {
         this.client = client;
@@ -45,6 +54,8 @@ public class App {
 
         event = ctx.getBean(Event.class);
         app.logEvent(null, event, "Some event for 3");
+
+        app.loggingAspect.print();
 
         ctx.close();
     }
