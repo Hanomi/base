@@ -11,6 +11,6 @@ public class DBLogger implements EventLogger {
 
     @Override
     public void logEvent(Event event) {
-
+        jdbcTemplate.update("INSERT INTO events (id, msg) VALUE (?, ?)", event.getId(), event.getMessage());
     }
 }

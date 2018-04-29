@@ -20,6 +20,10 @@ public class Event {
         return message;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public void setMessage(String message) {
         this.message = message;
     }
