@@ -24,6 +24,7 @@
         <spring.ver>5.0.5.RELEASE</spring.ver>
         <aspectj.ver>1.9.0</aspectj.ver>
         <commons-io.ver>2.6</commons-io.ver>
+        <commons-dbcp.ver>20030825.184428</commons-dbcp.ver>
     </properties>
 
     <dependencies>
@@ -51,6 +52,11 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>${commons-io.ver}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>${commons-dbcp.ver}</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
